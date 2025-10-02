@@ -5,3 +5,5 @@ mlartifacts/
 mlflow.db
 
 data/
+
+*.html

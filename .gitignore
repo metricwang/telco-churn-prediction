@@ -1,0 +1,7 @@
+folder_structure.txt
+
+mlruns/
+mlartifacts/
+mlflow.db
+
+data/

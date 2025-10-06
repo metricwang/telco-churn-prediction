@@ -156,6 +156,12 @@ def train_logistic(pipeline, X_train, y_train, X_test, y_test, quick_mode=True):
     # Evaluate
     best_model = grid_search.best_estimator_
     eval_results = evaluate_model(best_model, X_train, y_train, X_test, y_test, "Logistic Regression")
+
+    optimal_thresh, metrics, fig = find_optimal_threshold(
+        y_test, 
+        eval_results['y_test_proba'], 
+        metric='f1'
+    )
     
     # Log to MLflow
     cv_results = {
@@ -169,7 +175,8 @@ def train_logistic(pipeline, X_train, y_train, X_test, y_test, quick_mode=True):
         grid_search.best_params_,
         cv_results,
         eval_results,
-        X_train
+        X_train,
+        optimal_thresh
     )
     
     return best_model, grid_search, eval_results
@@ -237,6 +244,12 @@ def train_random_forest(pipeline, X_train, y_train, X_test, y_test, quick_mode=T
     best_model = grid_search.best_estimator_
     eval_results = evaluate_model(best_model, X_train, y_train, X_test, y_test, "Random Forest")
     
+    optimal_thresh, metrics, fig = find_optimal_threshold(
+        y_test, 
+        eval_results['y_test_proba'], 
+        metric='f1'
+    )
+
     # Log to MLflow
     cv_results = {
         'mean_test_auc': grid_search.best_score_,
@@ -249,7 +262,8 @@ def train_random_forest(pipeline, X_train, y_train, X_test, y_test, quick_mode=T
         grid_search.best_params_,
         cv_results,
         eval_results,
-        X_train
+        X_train,
+        optimal_thresh
     )
     
     return best_model, grid_search, eval_results
@@ -322,6 +336,12 @@ def train_xgboost(pipeline, X_train, y_train, X_test, y_test, quick_mode=True):
     best_model = grid_search.best_estimator_
     eval_results = evaluate_model(best_model, X_train, y_train, X_test, y_test, "XGBoost")
     
+    optimal_thresh, metrics, fig = find_optimal_threshold(
+        y_test, 
+        eval_results['y_test_proba'], 
+        metric='f1'
+    )
+    
     # Log to MLflow
     cv_results = {
         'mean_test_auc': grid_search.best_score_,
@@ -334,7 +354,8 @@ def train_xgboost(pipeline, X_train, y_train, X_test, y_test, quick_mode=True):
         grid_search.best_params_,
         cv_results,
         eval_results,
-        X_train
+        X_train,
+        optimal_thresh
     )
     
     return best_model, grid_search, eval_results
@@ -424,12 +445,13 @@ def find_optimal_threshold(y_true, y_proba, metric='f1'):
 # ============================================================================
 # Log model to mlflow
 # ============================================================================
-def log_model_to_mlflow(model, model_name, params, cv_results, eval_results, X_train):
+def log_model_to_mlflow(model, model_name, params, cv_results, eval_results, X_train, Threshold):
     """Log model, parameters, and metrics to MLflow"""
     
     with mlflow.start_run(run_name=model_name):
         # Log parameters
         mlflow.log_params(params)
+        mlflow.log_param('Threshold', Threshold)
         
         # Log CV results
         mlflow.log_metric("cv_mean_auc", cv_results['mean_test_auc'])

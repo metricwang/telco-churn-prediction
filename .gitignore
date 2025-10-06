@@ -7,3 +7,5 @@ mlflow.db
 data/
 
 *.html
+
+__pycache__/

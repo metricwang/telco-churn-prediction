@@ -106,6 +106,7 @@ To start FastAPI:
 ```
 python3 ./src/4_deployment.py
 ```
+Then open: http://localhost:8000/
 
 
 ## 🧰 Setup Instructions

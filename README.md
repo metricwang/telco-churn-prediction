@@ -58,6 +58,21 @@ In this project, I built, compared, and deployed several ML models to predict wh
 - Used train-test split, cross-validation, hyperparameter tuning, and AUC as the main metric.  
 - Logged all experiments, metrics, and parameters with **MLflow**.
 
+#### 🧾 MLflow Tracking
+Each training run is logged to MLflow, capturing:
+- Model type and hyperparameters
+- Training and validation metrics
+- Versioned model artifacts
+- Chart artifacts
+
+To start the MLflow UI:
+```
+mlflow localhost:8765
+```
+
+Then open: http://localhost:8765
+
+
 | Model | Test AUC |
 |-------|-----|
 | Logistic Regression | 0.8607 |
@@ -65,8 +80,16 @@ In this project, I built, compared, and deployed several ML models to predict wh
 | XGBoost | 0.8641 |
 
 ### 3. Batch Prediction
-- Implemented the batch prediction for scoring new customer data.  
+- Implemented the batch prediction for scoring new customer data using AirFlow.  
 - Outputs predictions in CSV for further business action.
+
+To start AirFlow:
+```
+airflow standalone
+```
+
+Then open: http://localhost:8080/
+
 
 ### 4. Deployment
 - Exposed the final Random Forest model as a REST API using **FastAPI** (`4_deployment.py`).  
@@ -79,17 +102,11 @@ Example request:
 {"tenure": 12, "MonthlyCharges": 70.35, "Contract": "Month-to-month", ...}
 ```
 
-## 🧾 MLflow Tracking Example
-Each training run is logged to MLflow, capturing:
-- Model type and hyperparameters
-- Training and validation metrics
-- Versioned model artifacts
-- Chart artifacts
+To start FastAPI:
+```
+python3 ./src/4_deployment.py
+```
 
-To start the MLflow UI:
-
-mlflow ui
-Then open: http://localhost:8080
 
 ## 🧰 Setup Instructions
 1. Clone the Repository
@@ -117,10 +134,9 @@ python notebooks/4_deployment.py
 ```
 
 ## 📈 Future Improvements
-Integrate with Airflow for automated data ingestion and batch inference
-
 Add Streamlit dashboard for business-friendly visualization
 
 Log model drift and performance over time
 
 This project demonstrates practical machine learning engineering and MLOps practices for customer churn prediction. Built as part of a personal portfolio to showcase full-cycle data science capabilities.
+

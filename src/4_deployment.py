@@ -20,7 +20,7 @@ import logging
 # CONFIGURATION
 # ============================================================================
 # Set up MLflow
-mlflow.set_tracking_uri("http://localhost:8080")
+mlflow.set_tracking_uri("http://localhost:8765")
 
 # Set the best model's ID from MLflow
 MODEL_NAME = f"Telco Churn"

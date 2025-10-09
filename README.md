@@ -79,6 +79,8 @@ Then open: http://localhost:8765
 | Random Forest | 0.8642 |
 | XGBoost | 0.8641 |
 
+![alt text](image-1.png)
+
 ### 3. Batch Prediction
 - Implemented the batch prediction for scoring new customer data using AirFlow.  
 - Outputs predictions in CSV for further business action.
@@ -89,6 +91,8 @@ airflow standalone
 ```
 
 Then open: http://localhost:8080/
+![alt text](image.png)
+
 
 
 ### 4. Deployment
@@ -108,6 +112,7 @@ python3 ./src/4_deployment.py
 ```
 Then open: http://localhost:8000/
 
+![alt text](image-2.png)
 
 ## 🧰 Setup Instructions
 1. Clone the Repository
@@ -129,10 +134,6 @@ pip install -r requirements-full.txt
 3. Run Training Script
 Open the notebooks and run sequencially.
 
-4. Launch FastAPI
-```
-python notebooks/4_deployment.py
-```
 
 ## 📈 Future Improvements
 Add Streamlit dashboard for business-friendly visualization

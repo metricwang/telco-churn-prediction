@@ -7,3 +7,5 @@ data/
 __pycache__/
 
 telco_churn_env/
+
+*.png

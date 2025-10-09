@@ -15,6 +15,7 @@ In this project, I built, compared, and deployed several ML models to predict wh
 - Analyze customer data through EDA.
 - Build and evaluate multiple models (Logistic Regression, Random Forest, XGBoost).
 - Track experiments with **MLflow** for reproducibility.
+- Automate regular batch prediction with **AirFlow**.
 - Serve predictions through a **FastAPI** endpoint.
 
 ---

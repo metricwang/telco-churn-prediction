@@ -79,7 +79,7 @@ Then open: http://localhost:8765
 | Random Forest | 0.8642 |
 | XGBoost | 0.8641 |
 
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
 ### 3. Batch Prediction
 - Implemented the batch prediction for scoring new customer data using AirFlow.  
@@ -91,7 +91,7 @@ airflow standalone
 ```
 
 Then open: http://localhost:8080/
-![alt text](image.png)
+![alt text](images/image.png)
 
 
 
@@ -112,7 +112,7 @@ python3 ./src/4_deployment.py
 ```
 Then open: http://localhost:8000/
 
-![alt text](image-2.png)
+![alt text](images/image-2.png)
 
 ## 🧰 Setup Instructions
 1. Clone the Repository

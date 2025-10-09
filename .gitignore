@@ -1,5 +1,3 @@
-folder_structure.txt
-
 mlruns/
 mlartifacts/
 mlflow.db
@@ -7,3 +5,5 @@ mlflow.db
 data/
 
 __pycache__/
+
+telco_churn_env/

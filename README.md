@@ -1,6 +1,6 @@
 # 📞 Telco Customer Churn Prediction
 
-An end-to-end **machine learning project** that predicts telecom customer churn using **Logistic Regression**, **Random Forest**, and **XGBoost**, tracked with **MLflow** and deployed via **FastAPI**.
+An end-to-end **machine learning project** that predicts telecom customer churn using **Logistic Regression**, **Random Forest**, and **XGBoost**, tracked with **MLflow**, automated with **AirFlow**, and deployed via **FastAPI**.
 
 This project demonstrates a **production-style workflow** including exploratory data analysis (EDA), model training with experiment tracking, batch prediction, and deployment as an API — following modern MLOps practices.
 
@@ -42,6 +42,7 @@ In this project, I built, compared, and deployed several ML models to predict wh
 | Visualization | Matplotlib, Seaborn |
 | Modeling | scikit-learn, XGBoost |
 | Experiment Tracking | MLflow |
+| Automation | AirFlow |
 | Deployment | FastAPI |
 | Environment | venv |
 

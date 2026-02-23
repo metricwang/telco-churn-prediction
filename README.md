@@ -56,6 +56,80 @@ In this project, I built, compared, and deployed several ML models to predict wh
 - Generated `EDA_report.html` for summary insights.
 
 ### 2. Model Training & Evaluation
+[Link to the Jupyter Notebook](src/2%20model_training.ipynb)
+
+#### Business Interpretation & Intervention Strategy
+
+##### What the Model Tells Us
+
+The model achieves strong discriminative performance (see ROC and Precision-Recall curves), 
+and threshold tuning via F1 allows us to balance the cost of missing a churner vs. 
+over-alerting on loyal customers. In a real business setting, this threshold would be 
+calibrated based on the cost of a retention offer vs. the lifetime value of a saved customer.
+
+The four most predictive features reveal a coherent story:
+
+- **Tenure**: Customers who are newer to the service churn at significantly higher rates. 
+  The early months represent the highest-risk window — customers are still evaluating 
+  whether the product meets their expectations.
+- **Monthly Charges**: Higher bills correlate with higher churn. These customers may feel 
+  they are not getting sufficient value for what they pay, or are more price-sensitive 
+  and actively shopping alternatives.
+- **Contract Type (Two-Year)**: Customers on two-year contracts are much less likely to 
+  churn — not surprisingly, but this also signals that customers who *haven't* committed 
+  to a long-term contract are structurally at risk.
+- **Payment Method (Electronic Check)**: This is a behavioral signal. Electronic check 
+  users tend to churn more, possibly because this payment method requires more active 
+  involvement and is associated with lower product embeddedness compared to auto-pay users.
+
+---
+
+##### Customer Segmentation by Risk Profile
+
+Rather than treating all high-risk customers the same, we can segment them into three 
+actionable groups based on churn probability and key attributes:
+
+| Segment | Profile | Churn Prob. | Recommended Action |
+|---|---|---|---|
+| **Critical: New + Expensive** | Tenure < 12 months, Monthly Charges > $70, no long-term contract | Very High | Priority outreach: onboarding check-in, loyalty discount or contract incentive |
+| **At-Risk: Price-Sensitive** | High monthly charges, electronic check payment, month-to-month contract | High | Targeted offer: bundle upgrade or switch to auto-pay with incentive |
+| **Watch: Early-Stage** | Tenure < 6 months, any contract type | Moderate-High | Proactive engagement: satisfaction survey, feature education |
+
+---
+
+##### Where to Intervene First
+
+If this were a real business problem with limited retention budget, I would prioritize 
+**Segment 1: New + Expensive customers**.
+
+The reasoning is straightforward: these customers represent the highest revenue at risk 
+(high monthly charges), have the shortest relationship with the company (low switching 
+cost psychologically), and have not yet locked into a contract. The combination of high 
+value and high vulnerability makes early intervention both urgent and high-ROI.
+
+Concretely, a retention team could use the model's daily churn probability output 
+(served via the FastAPI endpoint and updated by the Airflow pipeline) to flag any 
+customer entering this segment and trigger an automated outreach workflow within their 
+first 60 days.
+
+**Segment 2** is the next priority — these customers are already showing behavioral 
+signals of disengagement (electronic check, no auto-pay), and a targeted offer to 
+migrate them to auto-pay could simultaneously reduce churn risk and improve payment 
+reliability.
+
+---
+
+##### Limitations & Next Steps
+
+- This analysis is based on a static dataset. In production, model performance should 
+  be monitored over time as customer behavior and product offerings evolve.
+- Churn labels in this dataset are binary. A more nuanced model could predict *time to 
+  churn*, enabling earlier and more graduated interventions.
+- Segment definitions above are hypothesis-driven. In practice, these would be validated 
+  through A/B testing: randomly assign high-risk customers to treatment vs. control and 
+  measure actual retention lift.
+
+#### Technical Details
 - Compared three models: Logistic Regression, Random Forest, and XGBoost.  
 - Used train-test split, cross-validation, hyperparameter tuning, and AUC as the main metric.  
 - Logged all experiments, metrics, and parameters with **MLflow**.
